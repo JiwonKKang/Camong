@@ -1,17 +1,17 @@
 package com.bonjung.camong.experience.domain.entity;
 
+import com.bonjung.camong.common.BaseTimeEntity;
+import com.bonjung.camong.experience.api.request.ExperienceCreateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Getter
-public class Experience {
+public class Experience extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,19 @@ public class Experience {
     private String title;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private ImageFile mainImage;
+    private MediaFile mainImage;
 
+
+
+    private Experience(String title, MediaFile mainImage) {
+        this.title = title;
+        this.mainImage = mainImage;
+    }
+
+    public static Experience of(ExperienceCreateRequest request, MediaFile imageFile) {
+        return new Experience(
+                request.title(),
+                imageFile
+        );
+    }
 }
