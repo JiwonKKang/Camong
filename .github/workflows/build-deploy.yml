@@ -21,10 +21,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2 # git 레파지토리를 클론하는것과 같음
-        with:
-          script: |
-            mkdir -p src/main/resources/secret
-            echo "${{ secrets.GOOGLE_CREDENTIALS_SECRET }}" > src/main/resources/secret/spartan-trilogy-408411-575e7b6fa0ed.json
+        run: |
+          mkdir -p src/main/resources/secret
+          echo "${{ secrets.GOOGLE_CREDENTIALS_SECRET }}" > src/main/resources/secret/spartan-trilogy-408411-575e7b6fa0ed.json
       - name: Setup docker buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
