@@ -70,7 +70,7 @@ jobs:
 
 
       - name: Deploy
-        uses: appleboy/ssh-action@master # 추적을 위해 스텝을 나누어놨지만 한스크립트에서 전부 돌려도댐
+        uses: appleboy/ssh-action@master # 추적을 위해 스텝을 나누어놨지만 한스크립트에서 전부 돌려도댐.
         with:
           host: ${{ secrets.REMOTE_IP }}
           username: ${{ secrets.REMOTE_SSH_ID }}
