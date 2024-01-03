@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +22,7 @@ public class Experience extends BaseTimeEntity {
     private String title;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private MediaFile mainImage;
 
 
@@ -34,5 +37,13 @@ public class Experience extends BaseTimeEntity {
                 request.title(),
                 imageFile
         );
+    }
+
+    public void update(ExperienceCreateRequest request) {
+        this.title = request.title();
+    }
+
+    public void updateImage(MediaFile imageFile) {
+        this.mainImage = imageFile;
     }
 }
