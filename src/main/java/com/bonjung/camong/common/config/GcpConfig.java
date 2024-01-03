@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.Base64Utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 @Configuration
 public class GcpConfig {
 
-    @Value("${spring.cloud.gcp.storage.credentials.location}")
+    @Value("${spring.cloud.gcp.storage.credentials.encoded-key}")
     private String gcpKey;
 
     @Value("${spring.cloud.gcp.storage.project-id}")
@@ -21,14 +24,17 @@ public class GcpConfig {
 
     @Bean
     public Storage storage() throws IOException {
-
-        ClassPathResource resource = new ClassPathResource(gcpKey);
-        GoogleCredentials credentials = GoogleCredentials.fromStream(resource.getInputStream());
+        GoogleCredentials credentials = getDecodedCredentials(gcpKey);
         return StorageOptions.newBuilder()
                 .setProjectId(projectId)
                 .setCredentials(credentials)
                 .build()
                 .getService();
+    }
+
+    private GoogleCredentials getDecodedCredentials(String encodedKey) throws IOException {
+        byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
+        return GoogleCredentials.fromStream(new ByteArrayInputStream(decodedKey));
     }
 
 }

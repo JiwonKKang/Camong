@@ -8,7 +8,7 @@ spring:
       storage:
         url: https://storage.googleapis.com/${BUCKET_NAME}/
         credentials:
-          location: ${GCP_KEY_PATH}
+          encoded-key: ${GCS_KEY}
         project-id: ${GCP_PROJECT_ID}
         bucket: ${BUCKET_NAME}
   datasource:
