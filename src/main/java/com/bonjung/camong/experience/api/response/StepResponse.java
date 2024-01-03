@@ -3,7 +3,7 @@ package com.bonjung.camong.experience.api.response;
 import com.bonjung.camong.experience.domain.entity.Step;
 
 public record StepResponse(
-        Long pageId,
+        Long stepId,
         String title,
         String line,
         Integer sequence,
