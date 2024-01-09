@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -25,6 +28,8 @@ public class Experience extends BaseTimeEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MediaFile mainImage;
 
+    @OneToMany(mappedBy = "experience", fetch = FetchType.LAZY)
+    private List<Step> steps = new ArrayList<>();
 
 
     private Experience(String title, MediaFile mainImage) {
@@ -37,6 +42,10 @@ public class Experience extends BaseTimeEntity {
                 request.title(),
                 imageFile
         );
+    }
+
+    public int countSteps() {
+        return steps.size();
     }
 
     public void update(ExperienceCreateRequest request) {

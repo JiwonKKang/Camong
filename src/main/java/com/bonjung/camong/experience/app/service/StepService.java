@@ -39,7 +39,16 @@ public class StepService {
         MediaFile imageFile = fileUploadService.uploadFileInStorage(image);
         MediaFile voiceFile = fileUploadService.uploadFileInStorage(voice);
         Experience experience = experienceService.getExperienceById(experienceId);
-        stepRepository.save(Step.of(request, experience, imageFile, voiceFile));
+
+        stepRepository.save(
+                Step.of( experience.countSteps() + 1,
+                        request.title(),
+                        request.line(),
+                        experience,
+                        imageFile,
+                        voiceFile,
+                        request.duration())
+        );
     }
 
     public List<StepResponse> getSteps(Long experienceId) {

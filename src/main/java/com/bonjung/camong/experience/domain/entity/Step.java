@@ -54,15 +54,15 @@ public class Step extends BaseTimeEntity {
         this.duration = duration;
     }
 
-    public static Step of(StepCreateRequest request, Experience experience, MediaFile image, MediaFile voiceFile) {
+    public static Step of(Integer sequence, String title, String line, Experience experience, MediaFile image, MediaFile voiceFile, long duration) {
         return new Step(
-                request.sequence(),
-                request.title(),
-                request.line(),
+                sequence,
+                title,
+                line,
                 experience,
                 image,
                 voiceFile,
-                request.duration()
+                duration
         );
     }
 
