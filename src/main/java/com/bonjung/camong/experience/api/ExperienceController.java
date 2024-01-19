@@ -67,4 +67,10 @@ public class ExperienceController {
         return Response.success("experience delete success");
     }
 
+    @PatchMapping("/{experienceId}/status")
+    @Operation(summary = "체험 상태 변경")
+    public Response<Void> flipExperienceStatus(@PathVariable Long experienceId) {
+        experienceService.flipExperienceStatus(experienceId);
+        return Response.success("체험 상태 변경 성공");
+    }
 }

@@ -31,17 +31,28 @@ public class Experience extends BaseTimeEntity {
     @OneToMany(mappedBy = "experience", fetch = FetchType.LAZY)
     private List<Step> steps = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private ExperienceStatus experienceStatus;
 
-    private Experience(String title, MediaFile mainImage) {
+    private Experience(String title, MediaFile mainImage, ExperienceStatus experienceStatus) {
         this.title = title;
         this.mainImage = mainImage;
+        this.experienceStatus = experienceStatus;
     }
 
     public static Experience of(ExperienceCreateRequest request, MediaFile imageFile) {
         return new Experience(
                 request.title(),
-                imageFile
+                imageFile,
+                ExperienceStatus.ON
         );
+    }
+    
+    public void flipExperienceStatus() {
+        switch (experienceStatus) {
+            case ON -> experienceStatus = ExperienceStatus.OFF;
+            case OFF -> experienceStatus = ExperienceStatus.ON;
+        }
     }
 
     public int countSteps() {

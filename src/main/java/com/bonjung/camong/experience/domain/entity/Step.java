@@ -66,6 +66,10 @@ public class Step extends BaseTimeEntity {
         );
     }
 
+    public void decreaseSequence() {
+        this.sequence--;
+    }
+
     public void updateSequence(Integer sequence) {
         this.sequence = sequence;
     }

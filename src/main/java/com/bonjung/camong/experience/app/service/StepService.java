@@ -71,8 +71,17 @@ public class StepService {
                 new CustomException(ErrorCode.PAGE_NOT_FOUND));
     }
 
+    @Transactional
     public void deleteStep(Long stepId) {
-        stepRepository.deleteById(stepId);
+        Step deleteStep = getStep(stepId);
+        Experience experience = deleteStep.getExperience();
+        List<Step> steps = experience.getSteps();
+
+        steps.stream()
+                .filter(step -> step.getSequence() > deleteStep.getSequence())
+                .forEach(Step::decreaseSequence);
+
+        stepRepository.delete(deleteStep);
     }
 
     @Transactional

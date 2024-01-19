@@ -5,6 +5,7 @@ import com.bonjung.camong.common.exception.ErrorCode;
 import com.bonjung.camong.experience.api.request.ExperienceCreateRequest;
 import com.bonjung.camong.experience.api.response.ExperienceResponse;
 import com.bonjung.camong.experience.domain.entity.Experience;
+import com.bonjung.camong.experience.domain.entity.ExperienceStatus;
 import com.bonjung.camong.experience.domain.entity.MediaFile;
 import com.bonjung.camong.experience.domain.repository.ExperienceRepository;
 import com.bonjung.camong.experience.domain.repository.MediaFileRepository;
@@ -49,6 +50,13 @@ public class ExperienceService {
         }
 
         experience.update(request);
+    }
+
+    @Transactional
+    public void flipExperienceStatus(Long experienceId) {
+        Experience experience = getExperienceById(experienceId);
+
+        experience.flipExperienceStatus();
     }
 
     public Page<ExperienceResponse> getExperiences(Pageable pageable) {
