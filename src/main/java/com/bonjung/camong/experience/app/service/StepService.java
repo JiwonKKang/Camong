@@ -44,6 +44,8 @@ public class StepService {
                 Step.of( experience.countSteps() + 1,
                         request.title(),
                         request.line(),
+                        imageFile != null,
+                        request.videoUrl(),
                         experience,
                         imageFile,
                         voiceFile,

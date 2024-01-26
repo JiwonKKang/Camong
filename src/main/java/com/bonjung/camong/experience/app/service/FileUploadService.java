@@ -30,6 +30,10 @@ public class FileUploadService {
 
     public MediaFile uploadFileInStorage(MultipartFile file) {
 
+        if (file == null) {
+            return null;
+        }
+
         String ext = file.getContentType();
         String uuid = UUID.randomUUID().toString();
 

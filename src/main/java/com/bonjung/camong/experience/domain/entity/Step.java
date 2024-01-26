@@ -30,6 +30,10 @@ public class Step extends BaseTimeEntity {
 
     private String line;
 
+    private Boolean isImage;
+
+    private String videoUrl;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Experience experience;
@@ -44,21 +48,25 @@ public class Step extends BaseTimeEntity {
 
     private long duration;
 
-    private Step(Integer sequence, String title, String line, Experience experience, MediaFile image, MediaFile voice, long duration) {
+    private Step(Integer sequence, String title, String line, Boolean isImage, String videoUrl, Experience experience, MediaFile image, MediaFile voice, long duration) {
         this.sequence = sequence;
         this.title = title;
         this.line = line;
+        this.isImage = isImage;
+        this.videoUrl = videoUrl;
         this.experience = experience;
         this.image = image;
         this.voice = voice;
         this.duration = duration;
     }
 
-    public static Step of(Integer sequence, String title, String line, Experience experience, MediaFile image, MediaFile voiceFile, long duration) {
+    public static Step of(Integer sequence, String title, String line, Boolean isImage, String videoUrl, Experience experience, MediaFile image, MediaFile voiceFile, long duration) {
         return new Step(
                 sequence,
                 title,
                 line,
+                isImage,
+                videoUrl,
                 experience,
                 image,
                 voiceFile,

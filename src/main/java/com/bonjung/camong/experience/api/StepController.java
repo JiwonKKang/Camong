@@ -27,7 +27,7 @@ public class StepController {
     @Operation(summary = "스텝 생성")
     public Response<Void> createStep(@PathVariable Long experienceId,
                                      @RequestPart StepCreateRequest request,
-                                     @RequestPart MultipartFile image,
+                                     @RequestPart(required = false) MultipartFile image,
                                      @RequestPart MultipartFile voice) {
         stepService.createStep(experienceId, request, image, voice);
 
