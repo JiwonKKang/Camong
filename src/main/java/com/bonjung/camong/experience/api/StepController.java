@@ -28,7 +28,7 @@ public class StepController {
     public Response<Void> createStep(@PathVariable Long experienceId,
                                      @RequestPart StepCreateRequest request,
                                      @RequestPart(required = false) MultipartFile image,
-                                     @RequestPart MultipartFile voice) {
+                                     @RequestPart(required = false) MultipartFile voice) {
         stepService.createStep(experienceId, request, image, voice);
 
         return Response.success("create page success");

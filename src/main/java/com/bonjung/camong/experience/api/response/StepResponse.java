@@ -15,7 +15,7 @@ public record StepResponse(
         String imageUrl,
         String videoUrl,
         String voiceUrl,
-        long duration
+        Long duration
 ) {
     public static StepResponse from(Step entity) {
 
@@ -28,8 +28,8 @@ public record StepResponse(
                 entity.getSequence(),
                 entity.getIsImage(),
                 (isImage) ? entity.getImage().getFileUrl() : null,
-                (isImage) ? null : entity.getVideoUrl(), 
-                entity.getVoice().getFileUrl(),
+                (isImage) ? null : entity.getVideoUrl(),
+                (isImage) ? entity.getVoice().getFileUrl() : null,
                 entity.getDuration()
         );
     }
