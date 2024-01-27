@@ -11,11 +11,13 @@ public record StepCreateRequest(
         String videoUrl,
         Long duration
 ) {
-    public Step toVideoStep() {
+    public Step toVideoStep(Experience experience) {
         return new Step(
+                experience.countSteps() + 1,
                 title,
                 isImage,
-                videoUrl
+                videoUrl,
+                experience
         );
     }
 

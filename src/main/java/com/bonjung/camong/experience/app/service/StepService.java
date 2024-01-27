@@ -41,10 +41,13 @@ public class StepService {
         Experience experience = experienceService.getExperienceById(experienceId);
 
         if (request.isImage()) {
+            if (imageFile == null && voiceFile == null) {
+                throw new CustomException(ErrorCode.INVALID_REQUEST, "should have imageFile and voiceFile in Image Step");
+            }
             stepRepository.save(request.toImageStep(experience, imageFile, voiceFile));
             return;
         }
-        stepRepository.save(request.toVideoStep());
+        stepRepository.save(request.toVideoStep(experience));
     }
 
     public List<StepResponse> getSteps(Long experienceId) {
@@ -83,6 +86,8 @@ public class StepService {
     @Transactional
     public void updateStep(Long stepId, StepUpdateRequest request, MultipartFile image, MultipartFile voice) {
         Step step = getStep(stepId);
+
+        step.updateVideoUrl(request.videoUrl());
 
         MediaFile imageFile = (image != null) ? fileUploadService.uploadFileInStorage(image) : null;
         MediaFile voiceFile = (voice != null) ? fileUploadService.uploadFileInStorage(voice) : null;

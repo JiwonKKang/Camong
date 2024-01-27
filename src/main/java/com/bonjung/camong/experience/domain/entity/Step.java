@@ -59,10 +59,16 @@ public class Step extends BaseTimeEntity {
         this.duration = duration;
     }
 
-    public Step(String title, Boolean isImage, String videoUrl) {
+    public Step(Integer sequence, String title, Boolean isImage, String videoUrl, Experience experience) {
+        this.sequence = sequence;
         this.title = title;
         this.isImage = isImage;
         this.videoUrl = videoUrl;
+        this.experience = experience;
+    }
+
+    public void updateVideoUrl(String videoUrl) {
+        if (Objects.nonNull(videoUrl)) this.videoUrl = videoUrl;
     }
 
     public void decreaseSequence() {
