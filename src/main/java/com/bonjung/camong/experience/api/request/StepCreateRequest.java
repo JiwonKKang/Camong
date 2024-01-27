@@ -13,6 +13,7 @@ public record StepCreateRequest(
 ) {
     public Step toVideoStep() {
         return new Step(
+                title,
                 isImage,
                 videoUrl
         );
